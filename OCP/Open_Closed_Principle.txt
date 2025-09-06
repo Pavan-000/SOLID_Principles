@@ -1,0 +1,17 @@
+
+ *** Open / Closed Principle : ( OCP )
+
+    * ->  Software entities should be open for extension, closed for Modification
+
+
+    Ex : 
+        A plug socket doesn't change when new devices are invented , you just
+        need to make new adaptors 
+
+Bad : 
+
+    * Modify class for new features
+
+Good : 
+
+    * Extend via new classes

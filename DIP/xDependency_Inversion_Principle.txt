@@ -1,0 +1,13 @@
+
+*** Dependency Inversion Principle : ( DIP )
+
+    * -> High level modulesdepend on abstractions, not on low level modules
+
+    Ex : 
+        A driver depends on vehicle interface, not on a specific car model
+
+Bad : 
+    High level depends on low level
+
+Good :
+    high level depends on abstractions

@@ -1,0 +1,14 @@
+
+*** Liskov Substitution Principle : ( LSP )
+
+    * -> Subtypes must be substitutable for their base types.
+    * -> A child class doesn't break the parent behaviour.
+
+    Ex : 
+        A square is not always a rectangle if it breaks rectangle rules.
+
+Bad : 
+    Subclasses break parent behaviour
+
+Good : 
+    Safe Substitution
