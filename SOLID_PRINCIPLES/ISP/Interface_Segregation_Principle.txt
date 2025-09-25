@@ -1,0 +1,13 @@
+
+*** Interface Segregation Principle : ( ISP )
+
+    * -> Clients should not force to depend on interfaces they dont use 
+
+    Ex : 
+        A printer shouldn't be forced to implement scan() if it only prints.
+        
+Bad : 
+    Fat interfaces, unused methods
+
+Good : 
+    lean focused interfaces

@@ -1,0 +1,15 @@
+
+*** Singleton Responsibilty Principle : SRP  ***
+
+ * -> A class should have one responsibility, meaning it should have only one
+      reason to change.
+
+ Ex : 
+    A Chef cooks food. A waiter serves customers. if one person did both
+    errors and ineffiiency would happen.
+
+Bad : 
+    Class does too many things 
+
+Good : 
+    Class Separation, easy maintanence 
