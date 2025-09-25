@@ -1,0 +1,215 @@
+# SOLID Principles Cheat Sheet
+
+This README provides a **complete understanding of SOLID principles** with definitions, real-world analogies, code examples (Java), and ASCII UML diagrams for quick reference.
+
+---
+
+## 1️⃣ Single Responsibility Principle (SRP)
+
+**Definition:** A class should have only one reason to change (one responsibility).
+
+**Analogy:** A chef cooks, a waiter serves; combining them reduces efficiency.
+
+**Java Example:**
+
+```java
+class User { private String name; }
+class UserRepository { public void save(User user) {} }
+class ReportGenerator { public void generate(User user) {} }
+```
+
+**ASCII UML:**
+
+```
++----------------+
+|      User      |
++----------------+
+| - name         |
++----------------+
+        |
+        v
++----------------+
+| UserRepository |
++----------------+
+| + save(user)   |
++----------------+
+        |
+        v
++----------------+
+| ReportGenerator|
++----------------+
+| + generate(user)|
++----------------+
+```
+
+------------------------------------------------------------------------------------------------------------
+
+## 2️⃣ Open/Closed Principle (OCP)
+
+**Definition:** Software entities should be open for extension but closed for modification.
+
+**Analogy:** A plug socket supports new devices without changing the socket.
+
+**Java Example:**
+
+```java
+interface Payment { void pay(); }
+class CreditCardPayment implements Payment { public void pay() {} }
+class UpiPayment implements Payment { public void pay() {} }
+class PaymentProcessor { public void process(Payment payment) { payment.pay(); } }
+```
+
+**ASCII UML:**
+
+```
+           +----------------+
+           |    Payment     |
+           |  <<interface>> |
+           +----------------+
+             ^          ^
+             |          |
++----------------+  +----------------+
+| CreditCardPay  |  |   UpiPayment  |
++----------------+  +----------------+
+| + pay()        |  | + pay()        |
++----------------+  +----------------+
+             ^
+             |
+     +------------------+
+     | PaymentProcessor |
+     +------------------+
+     | + process(payment)|
+     +------------------+
+```
+
+------------------------------------------------------------------------------------------------------------
+
+## 3️⃣ Liskov Substitution Principle (LSP)
+
+**Definition:** Subtypes must be substitutable for their base types.
+
+**Analogy:** A square cannot always replace a rectangle if it breaks rules.
+
+**Java Example:**
+
+```java
+interface Bird {}
+interface FlyableBird extends Bird { void fly(); }
+class Sparrow implements FlyableBird { public void fly() {} }
+class Ostrich implements Bird {} // No fly
+```
+
+**ASCII UML:**
+
+```
+           +----------------+
+           |      Bird      |
+           +----------------+
+                  |
+        +--------------------+
+        |   FlyableBird      |
+        +--------------------+
+                  ^
+                  |
+           +-------------+
+           |   Sparrow   |
+           +-------------+
+           | + fly()     |
+           +-------------+
+
+           +-------------+
+           |   Ostrich   |
+           +-------------+
+           | (no fly)    |
+           +-------------+
+```
+
+-------------------------------------------------------------------------------------------------------------
+
+## 4️⃣ Interface Segregation Principle (ISP)
+
+**Definition:** Clients should not be forced to implement interfaces they do not use.
+
+**Analogy:** A printer shouldn’t implement scan() if it can only print.
+
+**Java Example:**
+
+```java
+interface Printer { void print(); }
+interface Scanner { void scan(); }
+class BasicPrinter implements Printer { public void print() {} }
+class MultiFunctionPrinter implements Printer, Scanner { public void print() {}; public void scan() {}; }
+```
+
+**ASCII UML:**
+
+```
++------------+         +-------------+
+|  Printer   |         |   Scanner   |
++------------+         +-------------+
+      ^                     ^
+      |                     |
++----------------+   +----------------------+
+| BasicPrinter   |   | MultiFunctionPrinter |
++----------------+   +----------------------+
+| + print()      |   | + print()            |
++----------------+   | + scan()             |
+                     +----------------------+
+```
+
+------------------------------------------------------------------------------------------------------------
+
+## 5️⃣ Dependency Inversion Principle (DIP)
+
+**Definition:** High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+**Analogy:** A driver depends on a vehicle interface, not a specific car model.
+
+**Java Example:**
+
+```java
+interface Database { void connect(); }
+class MySQLDatabase implements Database { public void connect() {} }
+class PostgreSQLDatabase implements Database { public void connect() {} }
+class UserService { private Database db; public UserService(Database db) { this.db = db; } public void saveUser() { db.connect(); } }
+```
+
+**ASCII UML:**
+
+```
+           +----------------+
+           |   Database     |
+           |  <<interface>> |
+           +----------------+
+            ^          ^
+            |          |
+   +----------------+  +----------------+
+   |  MySQLDatabase |  | PostgreSQLDB   |
+   +----------------+  +----------------+
+   | + connect()    |  | + connect()    |
+   +----------------+  +----------------+
+            ^
+            |
+     +----------------+
+     |   UserService  |
+     +----------------+
+     | - db:Database  |
+     | + saveUser()   |
+     +----------------+
+```
+
+---
+
+**Summary Table:**
+
+| Principle | Meaning                                     | Example                                   |
+| --------- | ------------------------------------------- | ----------------------------------------- |
+| SRP       | One class, one responsibility               | UserRepository, ReportGenerator           |
+| OCP       | Open for extension, closed for modification | PaymentProcessor + Payment interface      |
+| LSP       | Subtypes must be substitutable              | Sparrow & Ostrich example                 |
+| ISP       | Small, specific interfaces                  | Printer & Scanner interfaces              |
+| DIP       | Depend on abstractions, not concrete        | UserService depends on Database interface |
+
+---
+
+This can be used as a **quick reference and interview cheat sheet** for SOLID principles.

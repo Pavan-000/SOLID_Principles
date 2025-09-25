@@ -1,0 +1,87 @@
+Why Docker ? 
+    1) makes it easy to setup project locally
+    2) dockerize your own app   ,setting up open source code base locally using docker
+    3) learning to deploy via docker
+
+
+1) what is containerisation ? 
+2) history of docker ? 
+3) how to install docker ? play it with locally 
+4) containers vs images ? 
+5) create a simple full stack app , dockerFile
+6) containerizing the backend ?
+7) deploying to the dockerHub ?
+8) pulling and image and deploying it to the internet ? 
+9) a small flaw in our approach and assignment ?
+
+
+
+1) what is containerisation ? 
+    ** everyone has different OS
+    ** steps to run a project vary based on OS
+    ** extremely harder to keep track of dependencies as project grows
+    ** the way to describe your project configuration in a single file 
+    ** it could run in a isolated environment
+
+
+*** makes life easy when setting up project locally
+*** makes it easier to deploy containers 
+*** allow for container orchestration which makes deployment breeze
+
+
+Docker has 3 parts :
+    CLI : command line interface
+    Engine : where it does the work when you hit the commands 
+    Docker Hub : deploy docker images
+
+    docker cli lets you interact with Docker daemon engine 
+
+4) containers vs images ? 
+    *** A docker image behaves like a template from which consistent containers can be created.
+    If docker was a traditional VM, where image are ISO used to install your VM.
+    Images define the initial filesystem state of new containers
+    they bundle the source code and dependencies into self contained package thats ready to use with a container runtime 
+
+    
+// dockerFile
+    FROM node:20
+    WORKDIR /usr/src/app
+    COPY . .
+    RUN npm install
+    EXPOSE 3000
+    CMD ['node', 'index.js']
+
+commands : 
+        docker run hello-world 
+        docker build . -t test-app      // -t it gives a tagname it create a image locally 
+        docker images                   //  shows all the images
+        docker run <image_name>         // docker run test_app
+        docker run -p 3000:3000         // it exposes port to the local machine
+        docker ps                       // shows running containers
+
+7) Pushing to the dockerHub ?
+    docker create           // test-app is file name and we have to use this to push to docker hub
+    docker push pavankumar000/test-app
+
+
+// 
+docker build . -t <tagname>     create an image from locally 
+docker run <tagname>            // run the container 
+docker login                    // login to CLI
+docker push <tagname>           
+docker pull <tagname>
+
+    // containers
+        docker ps                           //list of running containers
+        docker ps -a                        // all containers
+        docker rm <container id or  name>  // remove the docker container
+        docker stop <container id or name> // stop the container
+        docker container prune              // remove all containers
+
+    // images
+        docker images or docker image ls     // show list of images
+        docker rmi <image id or name>       // remove the image 
+        docker image prune                  // remove all unused images
+
+
+

@@ -1,0 +1,40 @@
+folder navigation ------------------------------------------------
+
+pwd         -> show current directory
+ls          -> list all files and folders
+ls -la      -> list all (include .env , .git)
+cd folder_name -> move into folder
+cd ..       -> move back to folder 
+clear       -> clear terminal
+
+
+files & folder management  -----------------------------------------
+
+mkdir folder_name      -> create folder 
+touch index.js         -> create file 
+rm file.js             -> delete file 
+rm -r folder_name      -> delete folder and its content
+
+coding & running projects  -------------------------------------
+
+code .          -> open curr folder in VS code 
+node file.js    -> run a node file 
+npm init -y     -> start new node project
+npm install express     -> install a package 
+npm run dev     -> run dev server
+npx create-react-app myapp  -> create react app
+mongodb     -> start mongodb server
+
+
+git ----------------------------------
+
+git init                -> start a git repo
+git clone <repo url>    -> clone repo
+git status              -> check file changes
+git add .               ->  stage all changes
+git commit -m "message" -> save changes
+git branch -M main      -> rename branch to main 
+git remote add origin <url> -> link remote repo
+git push -u origin main     -> push code to github
+git pull                    -> get latest changes
+git log --online            -> view commit history 
