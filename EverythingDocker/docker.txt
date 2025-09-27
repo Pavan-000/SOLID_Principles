@@ -146,6 +146,40 @@ caching and layers
         docker run -v volume_database:/data/db --name mongo --network my_custom_network -p 27017:27017 mongo
 
 
+ENV variables : 
+    1) its difficult to keep editing the files 
+    2) you should not check in database urls 
+    3) ENVs are language independent construct to send the secrets to processess
+
+    // passing it via -e 
+    docker run -p 3000:3000 -e MONGO_URI=mongodbURL <img_tag>
+
+Multistage builds : 
+    Before we have to know : scripts in js , nodemon library
+
+    FROM node:20 AS base 
+    WORKDIR usr/src/app
+    COPY package*.json .
+    RUN npm install
+
+    FROM base AS development        
+    COPY . .
+    CMD ['nmp', 'run', 'dev']
+
+    FROM base AS production
+    COPY . .
+    RUN npm prune -production
+    CMD ['npm', 'run', 'start']
+
+    // for development and production
+    Dev : 
+        docker build --target production -t myapp:prod
+        docker build --target development -t myapp:dev
+    
+        docker run  -e MONGO_URI=url -p 3000:3000 -v .:/usr/src/app myapp:dev 
+
+        // -v .:/usr/src/app -> helps us to make changes from our local machine inside the container
+
 
     ubuntu : 
         vi file.js -> to open a file in terminal 

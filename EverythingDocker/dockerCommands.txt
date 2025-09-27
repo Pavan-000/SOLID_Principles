@@ -15,6 +15,9 @@ docker push
 
 
 ** docker exec -it contianrId /bin/bash
+** docker run -v ./usr/src/app/ -d app:dev     -   this -d helps run in detach mode means we can use terminal
+** docker logs contianrId                      -   check logs
+
 
 ** docker run image-name
 ** docker build . -t image_name                -   create an image

@@ -1,0 +1,37 @@
+Docker Compose : 
+Problem :
+    A project has lot of auxillary services it needs to use 
+    For ex : MongoDB, Postgres, Kafka, Redis
+    Solution : docker compose file 
+
+    Compose is a tool for defining and running multi-contianer docker application.
+    With compose file we can use YML file to configure your application services. then, with 
+    single command, you can create start all the services from your configuration.  
+
+
+** docker-compose up // runs all the container for setting up the 
+
+YML FIle : 
+
+services : 
+    mongodb : 
+        image : mongo:latest
+        ports : 
+            - "27017:27017"
+        volumes :
+            - mongodb-data:/data/db
+    
+    mysql : 
+        image : mysql:latest
+        environment :
+            MYSQL_ROOT_PASSWORD : rootpass
+        ports : 
+            - "3306:3306"
+    
+    custom_app : 
+        build : ./
+        ports : 
+            - "3000:3000"
+volumes : 
+    mongodb-data:
+    
