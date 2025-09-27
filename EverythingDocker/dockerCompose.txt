@@ -9,7 +9,7 @@ Problem :
     single command, you can create start all the services from your configuration.  
 
 
-** docker-compose up // runs all the container for setting up the 
+** docker-compose up        -  // runs all the container for setting up the application 
 
 YML FIle : 
 
@@ -34,4 +34,6 @@ services :
             - "3000:3000"
 volumes : 
     mongodb-data:
+
+
     
