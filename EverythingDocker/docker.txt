@@ -1,7 +1,7 @@
 Why Docker ? 
-    1) makes it easy to setup project locally
-    2) dockerize your own app   ,setting up open source code base locally using docker
-    3) learning to deploy via docker
+    ** makes it easy to setup project locally
+    ** dockerize your own app   ,setting up open source code base locally using docker
+    ** learning to deploy via docker
 
 
 1) what is containerisation ? 
@@ -13,6 +13,16 @@ Why Docker ?
 7) deploying to the dockerHub ?
 8) pulling and image and deploying it to the internet ? 
 9) a small flaw in our approach and assignment ?
+
+Part - 2
+
+1) caching and layers in Docker ?
+2) Volumes, networks, adding the DB 
+3) Multistage build 
+4) Understanding the    docker compose 
+5) creating the docker compose for our backend 
+6) go through the open source projects 
+
 
 
 
@@ -84,4 +94,62 @@ docker pull <tagname>
         docker image prune                  // remove all unused images
 
 
+-----------------------------------------------------------------------
+caching and layers 
+    FROM node:20                    layer1
+    WORKDIR usr/src/app             layer2          these cached so that next time you build you get these but any one change then all next we have to run from start
+    COPY . .                        layer3
+    RUN npm install                 layer4
+    EXPOSE 3000
+    CMD ['node', 'index.js']  
+
+    why layers ? 
+    1) caching , 2) Reusing layers 3) faster build times 
+
+    Instead 
+
+    FROM node:20
+    WORKDIR usr/src/app
+    COPY package* .
+    RUN npm install
+    COPY . . 
+
+2) Volumes and Networks 
+    **one more use case of docker 
+    **docker used to run DBs/ Redis/ Auxillary services 
+    **this is useful we dont need to pollute our fs with unneccesary dependencies
+    **we bring up and down DBs/ Redis / kafka and clean out our machine
+
+    We want local database to retain info accross restarts (volumes)
+    we want to allow docker container to talk to another container (networks)
+
+
+    Volumes : 
+        used for persisting data across starts
+        specifically useful for things like databases
+
+    How ? 
+        docker volume create volume_database
+        docker run -v volume_database:/data/db -p 27017:27017 mongo
+
+        running mongo 
+        docker run -p 27017:27017 mongo 
+
+        // it puts you in a bash shell inside container
+        docker exec -it contianrId /bin/bash
+
+
+    Network  :
+        docker network create custom_network_name
+        docker run -p 3000:3000 --name backend --network custom_network_name <img tag>
+
+        docker run -v volume_database:/data/db --name mongo --network my_custom_network -p 27017:27017 mongo
+
+
+
+    ubuntu : 
+        vi file.js -> to open a file in terminal 
+        :q to quit
+        :wq enter save and quit 
+        :w newfilename.js with new name save
 

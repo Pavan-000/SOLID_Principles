@@ -1,0 +1,60 @@
+DockerFile : 
+    FROM : node:20
+    WORKDIR usr/src/app
+    COPY package* . 
+    RUN npm install
+    COPY . .
+    EXPOSE 3000
+    CMD ['node', 'index.js']
+
+// Most used : 
+
+docker create
+docker login
+docker push 
+
+
+** docker exec -it contianrId /bin/bash
+
+** docker run image-name
+** docker build . -t image_name                -   create an image
+** docker -p 3000 run image_name               -   it expose a PORT 3000 and run image
+
+    *** containers ***
+        
+        ** docker ps,  docker ps -a            -   shows all containers
+        ** docker rm  --force container_name   -   remove the container 
+        ** docker stop container_name          -   stop the running container 
+        ** docker container prune              -   remove all the containeris
+    
+    *** Images ***
+
+        ** docker images, docker image ls      -   shows all the images 
+        ** docker rmi image_nameORid           -   remove the image 
+        ** docker image prune                  -   removes all the images
+
+    *** Volumes ***
+
+        ** docker volume create databse_name
+        ** docker run -v database_name:/data/db -p 27017:27017 image_name           -   it creates a persisits database
+
+
+    *** Network *** 
+
+        docker network create network_name
+        docker run -p 3000:3000 --name backend --network network_name  <image_tag>
+
+        //this one is for DB
+        docker run -v volume_name:/data/db -p 27017:27017 --name dbname --network network_name 
+
+         --> this way we can connect db with backend using network
+
+
+    // same for volume 
+
+         docker network ls
+         docker network inspect network_name
+         docker network connect my-network my-container
+         docker network disconnect my-network my-container
+         docker network rm network_name
+         docker network prune
